@@ -54,12 +54,14 @@ def update_label():
     for i in range(4):
         for j in range(4):
             if grid[i][j] != 0:
-                if grid[i][j]<9:
+                if grid[i][j]<10:
                     labels[j][f"l{j}{i}"].config(text=str(grid[i][j]), bg=color_of_each_number[grid[i][j]], padx =44)
-                elif grid[i][j]<99:
+                elif grid[i][j]<100:
                     labels[j][f"l{j}{i}"].config(text=str(grid[i][j]), bg=color_of_each_number[grid[i][j]], padx =36)
-                elif grid[i][j]<999:
+                elif grid[i][j]<1000:
                     labels[j][f"l{j}{i}"].config(text=str(grid[i][j]), bg=color_of_each_number[grid[i][j]], padx =28)
+                elif grid[i][j]<999:
+                    labels[j][f"l{j}{i}"].config(text=str(grid[i][j]), bg=color_of_each_number[grid[i][j]], padx =20)
             else:
                 labels[j][f"l{j}{i}"].config(text=" ", bg=color_of_each_number[0], padx = 48)
 
@@ -91,6 +93,18 @@ def check_game_over():
 
     if not any(0 in row for row in grid) and check_for_same_neighbour_in_the_grid(grid):
         game_over = True
+        
+    if any(2048 in row for row in grid):
+        mb.showinfo("Yayy!!", f"CONGRATULATIONS!!\nYou won with {score} points")
+        grid = [[0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]]
+        score = 0
+        score_label.config(text=f"score:{score}")
+        update_label()
+        game_started = False
+        return 
 
     if not game_over:
         return
