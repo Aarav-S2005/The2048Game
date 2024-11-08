@@ -39,7 +39,7 @@ def start_game(_):
         y1 = rd.choice(range(4))
         x2 = rd.choice(range(4))
         y2 = rd.choice(range(4))
-        while x1==x2 or y1==y2:
+        while x1==x2 and y1==y2:
             x2 = rd.choice(range(4))
             y2 = rd.choice(range(4))
         grid[y1][x1] = 2
@@ -93,7 +93,7 @@ def check_game_over():
 
     if not any(0 in row for row in grid) and check_for_same_neighbour_in_the_grid(grid):
         game_over = True
-        
+
     if any(2048 in row for row in grid):
         mb.showinfo("Yayy!!", f"CONGRATULATIONS!!\nYou won with {score} points")
         grid = [[0, 0, 0, 0],
@@ -104,12 +104,12 @@ def check_game_over():
         score_label.config(text=f"score:{score}")
         update_label()
         game_started = False
-        return 
+        return
 
     if not game_over:
         return
     else:
-        mb.showinfo("Game Over", "GAME OVER!\nThere are no possible moves now")
+        mb.showinfo("Game Over", f"GAME OVER!\nThere are no possible moves now\nYour score : {score}")
         grid = [[0, 0, 0, 0],
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
@@ -131,7 +131,7 @@ def add_num():
         x = rd.choice(range(4))
         y = rd.choice(range(4))
     grid[x][y] = num
-    labels[y][f"l{y}{x}"].config(text=num, background=color_of_each_number[num], padx =48 - (4 * len(str(grid[j][i]))))
+    labels[y][f"l{y}{x}"].config(text=num, background=color_of_each_number[num], padx =44)
 
 def left_click( grid):
     global labels, color_of_each_number,  score, game_started
